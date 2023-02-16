@@ -1,9 +1,14 @@
 package ie.tudublin;
 
+import java.util.ArrayList;
 import processing.core.PApplet;
+import processing.data.Table;
+import processing.data.TableRow;
 
 public class StarMap extends PApplet
 {
+	ArrayList<Star> stars = new ArrayList<Star>();
+
 	public void settings()
 	{
 		size(500, 500);
@@ -14,12 +19,26 @@ public class StarMap extends PApplet
 		background(0);
 		
 		smooth();
-		
-
-
 	}
+	
+	void loadStars()
+    {
+        Table table = loadTable("HabHYG15ly.csv", "header");
+        for(TableRow r:table.rows())
+        {
+            Star s = new Star(r);
+            stars.add(s);
+        }
+    }
 
-
+	void drawStars()
+	{
+		for(Star s:stars)
+		{
+			System.out.println(s);
+		}
+	}
+	
 	public void drawGrid()
 	{
 		stroke(255);
