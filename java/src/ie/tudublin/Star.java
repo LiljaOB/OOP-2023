@@ -25,6 +25,11 @@ public class Star {
             tr.getFloat("AbsMag")
         );
     }
+
+    public void render(StarMap pa)
+    {
+
+    }
     
     public Star(boolean hab, String displayName, float distance, float xG, float yG, float zG, float absMag) {
         this.hab = hab;
