@@ -20,13 +20,18 @@ public class Audio1 extends PApplet
     float smoothedAmplitude = 0;
 
     public void keyPressed() {
-		if (key >= '0' && key <= '9') {
+		if (key >= '0' && key <= '9') 
+        {
 			mode = key - '0';
 		}
-		if (keyCode == ' ') {
-            if (ap.isPlaying()) {
+		if (keyCode == ' ') 
+        {
+            if (ap.isPlaying())
+            {
                 ap.pause();
-            } else {
+            } 
+            else 
+            {
                 ap.rewind();
                 ap.play();
             }
@@ -35,16 +40,16 @@ public class Audio1 extends PApplet
 
     public void settings()
     {
-        size(1024, 1000, P3D);
+        size(1024, 700, P3D);
         //fullScreen(P3D, SPAN);
     }
 
     public void setup()
     {
+        //code for mic usage
         minim = new Minim(this);
-        // Uncomment this to use the microphone
-        // ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
-        // ab = ai.mix; 
+        //ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
+        //ab = ai.mix; 
 
         // And comment the next two lines out
         ap = minim.loadFile("heroplanet.mp3", 1024);
@@ -92,8 +97,36 @@ public class Audio1 extends PApplet
                 }
                 break;
         case 1:
-            background(0);            
+                background(0);
+                for(int i = 0 ; i < ab.size() ; i ++)
+                {
+                    float c = map(i, 0, ab.size(), 0, 255);
+                    stroke(c, 255, 255);
+                    float f = ab.get(i) * halfH;
+                    line(i, halfH + f, halfH - f, i);                    
+                }            
             break;
+        
+        case 2:
+            background(0);
+            for(int i = 0 ; i < ab.size() ; i ++)
+            {
+                float c = map(i, 0, ab.size(), 0, 255);
+                stroke(c, 255, 255);
+                float f = ab.get(i) * halfH;
+                line(i, height + f, i, height - f);
+                line(i, 0 + f, i, 0 - f);
+                line(0 + f, i, 0 - f, i);
+                line(width + f, i, width - f, i);
+            } 
+        break;
+
+        case 3:
+            background(0);
+
+            circle(height/2, width/2, smoothedAmplitude*height);
+            noFill();
+        break;
 
         }
         
